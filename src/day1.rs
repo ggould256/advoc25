@@ -1,6 +1,6 @@
 use regex::Regex;
 
-use log::debug;
+use log::{debug, info};
 
 use crate::parsing::read_regex_records;
 
@@ -121,7 +121,8 @@ mod tests {
     #[test]
     fn test_test_1() {
         if File::open(INPUT_A_DATA).is_err() {
-            panic!("Skipping test that requires input not in repository");
+            info!("Skipping test that requires input not in repository");
+            return;
         }
         assert_eq!(day1a(Some(INPUT_A_DATA.to_string())), 1040);
     }
@@ -134,7 +135,8 @@ mod tests {
     #[test]
     fn test_test_1b() {
         if File::open(INPUT_B_DATA).is_err() {
-            panic!("Skipping test that requires input not in repository");
+            info!("Skipping test that requires input not in repository");
+            return;
         }
         assert_eq!(day1b(Some(INPUT_B_DATA.to_string())), 6027);
     }
