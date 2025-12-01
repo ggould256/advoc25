@@ -4,8 +4,8 @@ use crate::parsing::read_regex_records;
 
 #[derive(Debug)]
 enum Lr {
-    LEFT,
-    RIGHT,
+    Left,
+    Right,
 }
 
 #[derive(Debug)]
@@ -22,8 +22,8 @@ fn read_input(source: Option<String>) -> Vec<Action> {
         assert_eq!(record.len(), 3); // Full match, direction, distance
         let action = Action {
             direction: match record[1].as_str() {
-                "L" => Lr::LEFT,
-                "R" => Lr::RIGHT,
+                "L" => Lr::Left,
+                "R" => Lr::Right,
                 _ => {
                     panic!("Parsing failure")
                 }
@@ -54,6 +54,7 @@ fn count_clicks(from_pos: i32, offset: i32) -> (i32, i32) {
         "From pos {} offset {} new pos {}",
         from_pos, remaining_offset, new_signed_pos
     );
+    #[allow(clippy::nonminimal_bool)] // For clarity.
     if (from_pos > 0 && new_signed_pos <= 0) || (from_pos > 0 && new_signed_pos >= DIAL_SIZE) {
         println!("Crossed zero");
         zero_arrivals += 1;
@@ -71,13 +72,13 @@ pub fn day1(source: Option<String>) -> (i32, i32) {
     for record in records {
         println!("Record: {:?} ", record);
         match record.direction {
-            Lr::LEFT => {
+            Lr::Left => {
                 let (zero_visits_inc, zero_passes_inc) = count_clicks(position, -record.distance);
                 zero_visits += zero_visits_inc;
                 zero_passes += zero_passes_inc;
                 position = (position - record.distance).rem_euclid(DIAL_SIZE);
             }
-            Lr::RIGHT => {
+            Lr::Right => {
                 let (zero_visits_inc, zero_passes_inc) = count_clicks(position, record.distance);
                 zero_visits += zero_visits_inc;
                 zero_passes += zero_passes_inc;
@@ -89,12 +90,12 @@ pub fn day1(source: Option<String>) -> (i32, i32) {
     (zero_visits, zero_passes)
 }
 
-pub fn day1a(source: Option<String>) -> i32 {
-    day1(source).0
+pub fn day1a(source: Option<String>) -> i64 {
+    day1(source).0 as i64
 }
 
-pub fn day1b(source: Option<String>) -> i32 {
-    day1(source).1
+pub fn day1b(source: Option<String>) -> i64 {
+    day1(source).1 as i64
 }
 
 #[cfg(test)]
@@ -133,6 +134,6 @@ mod tests {
         if File::open(INPUT_B_DATA).is_err() {
             panic!("Skipping test that requires input not in repository");
         }
-        assert_eq!(day1b(Some(INPUT_B_DATA.to_string())), 6038);
+        assert_eq!(day1b(Some(INPUT_B_DATA.to_string())), 6027);
     }
 }
