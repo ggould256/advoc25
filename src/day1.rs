@@ -1,16 +1,17 @@
 use regex::Regex;
 
-use crate::parsing::{read_regex_records};
+use crate::parsing::read_regex_records;
 
-
+#[derive(Debug)]
 enum Lr {
     LEFT,
-    RIGHT
+    RIGHT,
 }
 
+#[derive(Debug)]
 struct Action {
     direction: Lr,
-    distance: i32
+    distance: i32,
 }
 
 fn read_input(source: Option<String>) -> Vec<Action> {
@@ -18,52 +19,120 @@ fn read_input(source: Option<String>) -> Vec<Action> {
     let records = read_regex_records(source, regex.unwrap());
     let mut result: Vec<Action> = vec![];
     for record in records {
-        let action = Action{
+        assert_eq!(record.len(), 3); // Full match, direction, distance
+        let action = Action {
             direction: match record[1].as_str() {
                 "L" => Lr::LEFT,
                 "R" => Lr::RIGHT,
-                _ => { panic!("Parsing failure")}
+                _ => {
+                    panic!("Parsing failure")
+                }
             },
-            distance: record[1].parse::<i32>().unwrap()
+            distance: record[2].parse::<i32>().unwrap(),
         };
         result.push(action);
     }
     result
 }
 
-pub fn day1(source: Option<String>) -> i32 {
+const INITIAL_POSITION: i32 = 50;
+const DIAL_SIZE: i32 = 100;
+
+fn count_clicks(from_pos: i32, offset: i32) -> (i32, i32) {
+    let mut zero_arrivals = 0;
+
+    // A full rotation of the dial will generate a click.
+    let full_rotations = offset.abs() / DIAL_SIZE;
+    zero_arrivals += full_rotations;
+
+    // Net of full rotations, what is the remaining offset?
+    let remaining_offset = offset % DIAL_SIZE; // SIGNED in rust.
+
+    // Does that remaining offset cross zero?
+    let new_signed_pos = from_pos + remaining_offset;
+    println!(
+        "From pos {} offset {} new pos {}",
+        from_pos, remaining_offset, new_signed_pos
+    );
+    if (from_pos > 0 && new_signed_pos <= 0) || (from_pos > 0 && new_signed_pos >= DIAL_SIZE) {
+        println!("Crossed zero");
+        zero_arrivals += 1;
+    }
+
+    let end_at_zero = (from_pos + offset) % DIAL_SIZE == 0;
+    (end_at_zero as i32, zero_arrivals)
+}
+
+pub fn day1(source: Option<String>) -> (i32, i32) {
     let records = read_input(source);
-    0
+    let mut position = INITIAL_POSITION;
+    let mut zero_visits = 0;
+    let mut zero_passes = 0;
+    for record in records {
+        println!("Record: {:?} ", record);
+        match record.direction {
+            Lr::LEFT => {
+                let (zero_visits_inc, zero_passes_inc) = count_clicks(position, -record.distance);
+                zero_visits += zero_visits_inc;
+                zero_passes += zero_passes_inc;
+                position = (position - record.distance).rem_euclid(DIAL_SIZE);
+            }
+            Lr::RIGHT => {
+                let (zero_visits_inc, zero_passes_inc) = count_clicks(position, record.distance);
+                zero_visits += zero_visits_inc;
+                zero_passes += zero_passes_inc;
+                position = (position + record.distance).rem_euclid(DIAL_SIZE);
+            }
+        }
+        println!("Position: {}", position);
+    }
+    (zero_visits, zero_passes)
+}
+
+pub fn day1a(source: Option<String>) -> i32 {
+    day1(source).0
 }
 
 pub fn day1b(source: Option<String>) -> i32 {
-    let records = read_input(source);
-    0
+    day1(source).1
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    use const_format::concatcp;
+    use std::fs::File;
+
+    const DAY: &str = "1";
+    const EXAMPLE_A_DATA: &str = concatcp!("data/day", DAY, "a_example.txt");
+    const EXAMPLE_B_DATA: &str = concatcp!("data/day", DAY, "a_example.txt");
+    const INPUT_A_DATA: &str = concatcp!("inputs/day", DAY, "a_test.txt");
+    const INPUT_B_DATA: &str = concatcp!("inputs/day", DAY, "a_test.txt");
+
     #[test]
     fn test_example_1() {
-        assert_eq!(day1(Some("data/day1_example.txt".to_string())), 11);
+        assert_eq!(day1a(Some(EXAMPLE_A_DATA.to_string())), 3);
     }
 
     #[test]
-    #[ignore = "requires input not in repository"]
     fn test_test_1() {
-        assert_eq!(day1(Some("inputs/day1_test.txt".to_string())), 1319616);
+        if File::open(INPUT_A_DATA).is_err() {
+            panic!("Skipping test that requires input not in repository");
+        }
+        assert_eq!(day1a(Some(INPUT_A_DATA.to_string())), 1040);
     }
 
     #[test]
     fn test_example_1b() {
-        assert_eq!(day1b(Some("data/day1_example.txt".to_string())), 31);
+        assert_eq!(day1b(Some(EXAMPLE_B_DATA.to_string())), 6);
     }
 
     #[test]
-    #[ignore = "requires input not in repository"]
     fn test_test_1b() {
-        assert_eq!(day1b(Some("inputs/day1_test.txt".to_string())), 27267728);
+        if File::open(INPUT_B_DATA).is_err() {
+            panic!("Skipping test that requires input not in repository");
+        }
+        assert_eq!(day1b(Some(INPUT_B_DATA.to_string())), 6038);
     }
 }
