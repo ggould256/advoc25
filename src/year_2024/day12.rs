@@ -1,6 +1,6 @@
 use std::{collections::{HashMap, HashSet}};
 
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 
 type Color = char;
 type Coords = (usize, usize);
@@ -234,26 +234,26 @@ mod tests {
 
     #[test]
     fn test_example2() {
-        assert_eq!(day12(Some("data/day12_example1.txt".to_string())), 140);
-        assert_eq!(day12(Some("data/day12_example2.txt".to_string())), 772);
-        assert_eq!(day12(Some("data/day12_example3.txt".to_string())), 1930);
+        assert_eq!(day12(Some("data/2024/day12_example1.txt".to_string())), 140);
+        assert_eq!(day12(Some("data/2024/day12_example2.txt".to_string())), 772);
+        assert_eq!(day12(Some("data/2024/day12_example3.txt".to_string())), 1930);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day12(Some("inputs/day12_test.txt".to_string())), 489);
+        assert_eq!(day12(Some("inputs/2024/day12_test.txt".to_string())), 489);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day12b(Some("data/day12_example1.txt".to_string())), 80);
-        assert_eq!(day12b(Some("data/day12_example3.txt".to_string())), 1206);
+        assert_eq!(day12b(Some("data/2024/day12_example1.txt".to_string())), 80);
+        assert_eq!(day12b(Some("data/2024/day12_example3.txt".to_string())), 1206);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day12b(Some("inputs/day12_test.txt".to_string())), 897702);
+        assert_eq!(day12b(Some("inputs/2024/day12_test.txt".to_string())), 897702);
     }
 }

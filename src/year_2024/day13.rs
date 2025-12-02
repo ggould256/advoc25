@@ -2,7 +2,7 @@
 use nalgebra::{SMatrix, Vector2};
 use regex::Regex;
 
-use crate::parsing::read_regex_records;
+use crate::common::parsing::read_regex_records;
 
 type Scalar = i64;
 type Coords = (Scalar, Scalar);
@@ -97,23 +97,23 @@ mod tests {
 
     #[test]
     fn test_example2() {
-        assert_eq!(day13(Some("data/day13_example.txt".to_string())), 480);
+        assert_eq!(day13(Some("data/2024/day13_example.txt".to_string())), 480);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day13(Some("inputs/day13_test.txt".to_string())), 31589);
+        assert_eq!(day13(Some("inputs/2024/day13_test.txt".to_string())), 31589);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day13b(Some("data/day13_example.txt".to_string())), 875318608908);
+        assert_eq!(day13b(Some("data/2024/day13_example.txt".to_string())), 875318608908);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day13b(Some("inputs/day13_test.txt".to_string())), 98080815200063);
+        assert_eq!(day13b(Some("inputs/2024/day13_test.txt".to_string())), 98080815200063);
     }
 }

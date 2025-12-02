@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use nalgebra::{Matrix1x2, MatrixXx2};
 use regex::Regex;
 
-use crate::parsing::read_regex_records;
+use crate::common::parsing::read_regex_records;
 
 type IMatrix = MatrixXx2<i64>;
 type IRowVec = Matrix1x2<i64>;
@@ -126,13 +126,13 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day14_generic(Some("data/day14_example.txt".to_string()), 11, 7, 100), 12);
+        assert_eq!(day14_generic(Some("data/2024/day14_example.txt".to_string()), 11, 7, 100), 12);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day14(Some("inputs/day14_test.txt".to_string())), 222062148);
+        assert_eq!(day14(Some("inputs/2024/day14_test.txt".to_string())), 222062148);
     }
 
     // B cannot be tested.

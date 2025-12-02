@@ -1,7 +1,7 @@
 use lazy_static::lazy_static;
 use regex::Regex;
 
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 
 lazy_static! {
     static ref MUL_RE: Regex = Regex::new(r"mul\((\d{1,3}),(\d{1,3})\)").unwrap();
@@ -59,23 +59,23 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day3(Some("data/day3_example.txt".to_string())), 161);
+        assert_eq!(day3(Some("data/2024/day3_example.txt".to_string())), 161);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day3(Some("inputs/day3_test.txt".to_string())), 165225049);
+        assert_eq!(day3(Some("inputs/2024/day3_test.txt".to_string())), 165225049);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day3b(Some("data/day3_example_b.txt".to_string())), 48);
+        assert_eq!(day3b(Some("data/2024/day3_example_b.txt".to_string())), 48);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day3b(Some("inputs/day3_test.txt".to_string())), 108830766);
+        assert_eq!(day3b(Some("inputs/2024/day3_test.txt".to_string())), 108830766);
     }
 }

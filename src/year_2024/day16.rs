@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::parsing::read_lines;
-use crate::grid_board::{self, Board, Direction, Scalar, Xy};
+use crate::common::parsing::read_lines;
+use crate::common::grid_board::{self, Board, Direction, Scalar, Xy};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 enum BoardContent {
@@ -137,25 +137,25 @@ mod tests {
     #[test]
     #[ignore = "TODO"]
     fn test_example() {
-        assert_eq!(day16(Some("data/day16_example.txt".to_string())), 10092);
+        assert_eq!(day16(Some("data/2024/day16_example.txt".to_string())), 10092);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day16(Some("inputs/day16_test.txt".to_string())), 1495147);
+        assert_eq!(day16(Some("inputs/2024/day16_test.txt".to_string())), 1495147);
     }
 
     #[test]
     #[ignore = "TODO"]
     fn test_example_b() {
-        assert_eq!(day16b(Some("data/day16_example.txt".to_string())), 9021);
+        assert_eq!(day16b(Some("data/2024/day16_example.txt".to_string())), 9021);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day16b(Some("inputs/day16_test.txt".to_string())), 1524905);
+        assert_eq!(day16b(Some("inputs/2024/day16_test.txt".to_string())), 1524905);
     }
 
     // B cannot be tested.

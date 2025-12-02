@@ -5,6 +5,7 @@ type RegVal = u32;
 type ThreeBit = u8;
 type Program = Vec<ThreeBit>;
 
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum Instruction {
     Iadv,
@@ -132,9 +133,9 @@ impl VmState {
 }
 
 
-
+#[allow(dead_code)]
 pub fn day17(source: Option<String>) -> String {
-    let records = crate::parsing::read_regex_records(
+    let records = crate::common::parsing::read_regex_records(
         source,
         Regex::new(concat!(
             r"Register A: (\d+)\n+",
@@ -151,7 +152,7 @@ pub fn day17(source: Option<String>) -> String {
 }
 
 pub fn day17b(source: Option<String>) -> i64 {
-    let records = crate::parsing::read_regex_records(
+    let records = crate::common::parsing::read_regex_records(
         source,
         Regex::new(concat!(
             r"Register A: (\d+)\n+",
@@ -182,25 +183,25 @@ mod tests {
     use super::*;
     #[test]
     fn test_example() {
-        assert_eq!(day17(Some("data/day17_example.txt".to_string())), "4,6,3,5,6,3,5,2,1,0");
+        assert_eq!(day17(Some("data/2024/day17_example.txt".to_string())), "4,6,3,5,6,3,5,2,1,0");
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day17(Some("inputs/day17_test.txt".to_string())), "");
+        assert_eq!(day17(Some("inputs/2024/day17_test.txt".to_string())), "");
     }
 
     #[test]
     #[ignore = "TODO"]
     fn test_example_b() {
-        assert_eq!(day17b(Some("data/day17_example_b.txt".to_string())), 117440);
+        assert_eq!(day17b(Some("data/2024/day17_example_b.txt".to_string())), 117440);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day17b(Some("inputs/day17_test.txt".to_string())), 0);
+        assert_eq!(day17b(Some("inputs/2024/day17_test.txt".to_string())), 0);
     }
 
     // B cannot be tested.

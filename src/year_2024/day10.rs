@@ -1,6 +1,6 @@
 use std::{collections::{HashMap, HashSet}, iter};
 
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 
 type Elevation = i8;
 type Coords = (usize, usize);
@@ -134,23 +134,23 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day10(Some("data/day10_example.txt".to_string())), 36);
+        assert_eq!(day10(Some("data/2024/day10_example.txt".to_string())), 36);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day10(Some("inputs/day10_test.txt".to_string())), 489);
+        assert_eq!(day10(Some("inputs/2024/day10_test.txt".to_string())), 489);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day10b(Some("data/day10_example.txt".to_string())), 81);
+        assert_eq!(day10b(Some("data/2024/day10_example.txt".to_string())), 81);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day10b(Some("inputs/day10_test.txt".to_string())), 1086);
+        assert_eq!(day10b(Some("inputs/2024/day10_test.txt".to_string())), 1086);
     }
 }

@@ -104,7 +104,6 @@ pub fn parse_as_i32s(input: Vec<Vec<String>>) -> Vec<Vec<i64>> {
 }
 
 /// Extracts characters from `input` starting at `start` and then every `stride` characters thereafter.
-#[expect(unused)]
 pub fn stride_text(input: &str, start: usize, stride: usize) -> String {
     let mut line_iter = input.chars();
     let mut line = String::new();

@@ -1,4 +1,4 @@
-use crate::parsing::{read_lines, read_one_string, stride_text};
+use crate::common::parsing::{read_lines, read_one_string, stride_text};
 
 fn all_search_lines(input: String) -> Vec<String> {
     // Imagine the grid:
@@ -118,23 +118,23 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day4(Some("data/day4_example.txt".to_string())), 18);
+        assert_eq!(day4(Some("data/2024/day4_example.txt".to_string())), 18);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day4(Some("inputs/day4_test.txt".to_string())), 2504);
+        assert_eq!(day4(Some("inputs/2024/day4_test.txt".to_string())), 2504);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day4b(Some("data/day4_example.txt".to_string())), 9);
+        assert_eq!(day4b(Some("data/2024/day4_example.txt".to_string())), 9);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day4b(Some("inputs/day4_test.txt".to_string())), 1923);
+        assert_eq!(day4b(Some("inputs/2024/day4_test.txt".to_string())), 1923);
     }
 }

@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 
 // Occupancy Grid
 type Grid = Vec<Vec<bool>>;
@@ -217,24 +217,24 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day6(Some("data/day6_example.txt".to_string())), 41);
+        assert_eq!(day6(Some("data/2024/day6_example.txt".to_string())), 41);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day6(Some("inputs/day6_test.txt".to_string())), 4903);
+        assert_eq!(day6(Some("inputs/2024/day6_test.txt".to_string())), 4903);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day6b(Some("data/day6_example.txt".to_string())), 6);
+        assert_eq!(day6b(Some("data/2024/day6_example.txt".to_string())), 6);
     }
 
     // This test is not run as it requires a lot of time.
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day6b(Some("inputs/day6_test.txt".to_string())), 1911);
+        assert_eq!(day6b(Some("inputs/2024/day6_test.txt".to_string())), 1911);
     }
 }

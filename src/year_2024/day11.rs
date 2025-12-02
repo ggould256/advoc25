@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::parsing::read_all_records;
+use crate::common::parsing::read_all_records;
 
 type Stone = u64;
 
@@ -64,18 +64,18 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day11(Some("data/day11_example.txt".to_string())), 55312);
+        assert_eq!(day11(Some("data/2024/day11_example.txt".to_string())), 55312);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day11(Some("inputs/day11_test.txt".to_string())), 207683);
+        assert_eq!(day11(Some("inputs/2024/day11_test.txt".to_string())), 207683);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day11b(Some("inputs/day11_test.txt".to_string())), 244782991106220);
+        assert_eq!(day11b(Some("inputs/2024/day11_test.txt".to_string())), 244782991106220);
     }
 }

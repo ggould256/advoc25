@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 
 type Channel = char;
 type CoordScalar = i64;
@@ -121,23 +121,23 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day8(Some("data/day8_example.txt".to_string())), 14);
+        assert_eq!(day8(Some("data/2024/day8_example.txt".to_string())), 14);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day8(Some("inputs/day8_test.txt".to_string())), 344);
+        assert_eq!(day8(Some("inputs/2024/day8_test.txt".to_string())), 344);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day8b(Some("data/day8_example.txt".to_string())), 34);
+        assert_eq!(day8b(Some("data/2024/day8_example.txt".to_string())), 34);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day8b(Some("inputs/day8_test.txt".to_string())), 1182);
+        assert_eq!(day8b(Some("inputs/2024/day8_test.txt".to_string())), 1182);
     }
 }

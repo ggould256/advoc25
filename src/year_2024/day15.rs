@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 use nalgebra::Vector2;
 
 type Scalar = i64;
@@ -229,29 +229,29 @@ mod tests {
 
     #[test]
     fn test_example_small() {
-        assert_eq!(day15(Some("data/day15_example_small.txt".to_string())), 2028);
+        assert_eq!(day15(Some("data/2024/day15_example_small.txt".to_string())), 2028);
     }
 
     #[test]
     fn test_example() {
-        assert_eq!(day15(Some("data/day15_example.txt".to_string())), 10092);
+        assert_eq!(day15(Some("data/2024/day15_example.txt".to_string())), 10092);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day15(Some("inputs/day15_test.txt".to_string())), 1495147);
+        assert_eq!(day15(Some("inputs/2024/day15_test.txt".to_string())), 1495147);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day15b(Some("data/day15_example.txt".to_string())), 9021);
+        assert_eq!(day15b(Some("data/2024/day15_example.txt".to_string())), 9021);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day15b(Some("inputs/day15_test.txt".to_string())), 1524905);
+        assert_eq!(day15b(Some("inputs/2024/day15_test.txt".to_string())), 1524905);
     }
 
     // B cannot be tested.

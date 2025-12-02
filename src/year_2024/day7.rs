@@ -1,4 +1,4 @@
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 
 #[derive(Clone, Copy, Debug)]
 enum Operator {
@@ -88,18 +88,18 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day7(Some("data/day7_example.txt".to_string())), 3749);
+        assert_eq!(day7(Some("data/2024/day7_example.txt".to_string())), 3749);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day7(Some("inputs/day7_test.txt".to_string())), 945512582195);
+        assert_eq!(day7(Some("inputs/2024/day7_test.txt".to_string())), 945512582195);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day7b(Some("data/day7_example.txt".to_string())), 11387);
+        assert_eq!(day7b(Some("data/2024/day7_example.txt".to_string())), 11387);
     }
 
     // This test is not run as it requires a lot of time.
@@ -107,7 +107,7 @@ mod tests {
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
         assert_eq!(
-            day7b(Some("inputs/day7_test.txt".to_string())),
+            day7b(Some("inputs/2024/day7_test.txt".to_string())),
             271691107779347
         );
     }

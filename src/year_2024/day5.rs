@@ -1,4 +1,4 @@
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 
 fn read_rules(lines: &Vec<String>) -> Vec<(u32, u32)> {
     let mut result = Vec::new();
@@ -102,23 +102,23 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day5(Some("data/day5_example.txt".to_string())), 143);
+        assert_eq!(day5(Some("data/2024/day5_example.txt".to_string())), 143);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day5(Some("inputs/day5_test.txt".to_string())), 6242);
+        assert_eq!(day5(Some("inputs/2024/day5_test.txt".to_string())), 6242);
     }
 
     #[test]
     fn test_example_b() {
-        assert_eq!(day5b(Some("data/day5_example.txt".to_string())), 123);
+        assert_eq!(day5b(Some("data/2024/day5_example.txt".to_string())), 123);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day5b(Some("inputs/day5_test.txt".to_string())), 5169);
+        assert_eq!(day5b(Some("inputs/2024/day5_test.txt".to_string())), 5169);
     }
 }

@@ -1,4 +1,4 @@
-use crate::parsing::read_lines;
+use crate::common::parsing::read_lines;
 
 type Scalar = i64;
 
@@ -170,24 +170,24 @@ mod tests {
 
     #[test]
     fn test_example() {
-        assert_eq!(day9(Some("data/day9_example.txt".to_string())), 1928);
+        assert_eq!(day9(Some("data/2024/day9_example.txt".to_string())), 1928);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test() {
-        assert_eq!(day9(Some("inputs/day9_test.txt".to_string())), 6331212425418);
+        assert_eq!(day9(Some("inputs/2024/day9_test.txt".to_string())), 6331212425418);
     }
 
     #[test]
     #[ignore = "not implemented"]
     fn test_example_b() {
-        assert_eq!(day9b(Some("data/day9_example.txt".to_string())), 2858);
+        assert_eq!(day9b(Some("data/2024/day9_example.txt".to_string())), 2858);
     }
 
     #[test]
     #[ignore = "requires input not in repository"]
     fn test_test_b() {
-        assert_eq!(day9b(Some("inputs/day9_test.txt".to_string())), 1182);
+        assert_eq!(day9b(Some("inputs/2024/day9_test.txt".to_string())), 1182);
     }
 }
