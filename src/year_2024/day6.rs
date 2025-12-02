@@ -91,13 +91,13 @@ impl GameState {
         // TODO(ggould) There's got to be a better way!
         let old_pos = self.position;
         let offset = self.facing.offset();
-        let new_pos_as_i32: (i32, i32) = (
-            i32::try_from(old_pos.0).ok()? + i32::from(offset.0),
-            i32::try_from(old_pos.1).ok()? + i32::from(offset.1),
+        let new_pos_as_i64: (i64, i64) = (
+            i64::try_from(old_pos.0).ok()? + i64::from(offset.0),
+            i64::try_from(old_pos.1).ok()? + i64::from(offset.1),
         );
         let new_pos: Coords = (
-            usize::try_from(new_pos_as_i32.0).ok()?,
-            usize::try_from(new_pos_as_i32.1).ok()?,
+            usize::try_from(new_pos_as_i64.0).ok()?,
+            usize::try_from(new_pos_as_i64.1).ok()?,
         );
         if new_pos.0 >= self.w() || new_pos.1 >= self.h() {
             None
@@ -180,7 +180,7 @@ fn visited_set(start: &GameState) -> Option<HashSet<(Facing, Coords)>> {
     Some(visited)
 }
 
-pub fn day6(source: Option<String>) -> i32 {
+pub fn day6(source: Option<String>) -> i64 {
     let lines = read_lines(source);
     let game = GameState::from_lines(lines);
     let visited = visited_set(&game);
@@ -189,7 +189,7 @@ pub fn day6(source: Option<String>) -> i32 {
     visited_xy.len().try_into().unwrap()
 }
 
-pub fn day6b(source: Option<String>) -> i32 {
+pub fn day6b(source: Option<String>) -> i64 {
     let lines = read_lines(source);
     let game = GameState::from_lines(lines);
     let possible_obstacle_locs = visited_set(&game).unwrap();
@@ -208,7 +208,7 @@ pub fn day6b(source: Option<String>) -> i32 {
             looping_obstacle_locs.insert(xy);
         }
     }
-    i32::try_from(looping_obstacle_locs.len()).unwrap()
+    i64::try_from(looping_obstacle_locs.len()).unwrap()
 }
 
 #[cfg(test)]

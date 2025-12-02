@@ -22,7 +22,7 @@ fn at(map: &Map, (x, y): Coords) -> Color {
 
 const NO_COLOR: Color = '.';
 
-fn xat(map: &Map, (x, y): (i32, i32)) -> Color {
+fn xat(map: &Map, (x, y): (i64, i64)) -> Color {
     if let Ok(x) = usize::try_from(x) {
         if let Ok(y) = usize::try_from(y) {
             if y >= map.len() || x >= map[y].len() { NO_COLOR }
@@ -31,7 +31,7 @@ fn xat(map: &Map, (x, y): (i32, i32)) -> Color {
     } else { NO_COLOR }
 }
 
-fn corners(map: &Map, (x, y): (i32, i32)) -> usize {
+fn corners(map: &Map, (x, y): (i64, i64)) -> usize {
     let center = xat(map, (x, y));
     let mut result = 0;
     let (n, ne, e, se, s, sw, w, nw) = (
@@ -201,8 +201,8 @@ fn count_sides(map: &Map, region: &Region) -> usize {
     // We count sides by counting corners.
     let mut count = 0;
     for (x, y) in region {
-        let x: i32 = *x as i32;
-        let y: i32 = *y as i32;
+        let x: i64 = *x as i64;
+        let y: i64 = *y as i64;
         count += corners(map, (x, y))
     }
     count

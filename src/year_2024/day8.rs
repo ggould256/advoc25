@@ -3,7 +3,7 @@ use std::collections::{HashMap, HashSet};
 use crate::parsing::read_lines;
 
 type Channel = char;
-type CoordScalar = i32;
+type CoordScalar = i64;
 fn as_coord_scalar(x: usize) -> CoordScalar {
     x.try_into().unwrap()
 }

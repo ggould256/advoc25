@@ -77,23 +77,23 @@ fn middle_element(update: &[u32]) -> u32 {
     update[(update.len() - 1) / 2]
 }
 
-pub fn day5(source: Option<String>) -> i32 {
+pub fn day5(source: Option<String>) -> i64 {
     let lines = read_lines(source);
     let rules = read_rules(&lines);
     let updates = read_updates(&lines);
     let valid_updates = updates.iter().filter(|&u| valid_update(u, &rules));
     let total: u32 = valid_updates.map(|u| middle_element(u)).sum();
-    i32::try_from(total).unwrap()
+    i64::try_from(total).unwrap()
 }
 
-pub fn day5b(source: Option<String>) -> i32 {
+pub fn day5b(source: Option<String>) -> i64 {
     let lines = read_lines(source);
     let rules = read_rules(&lines);
     let updates = read_updates(&lines);
     let invalid_updates = updates.iter().filter(|&u| !valid_update(u, &rules));
     let newly_valid_updates = invalid_updates.map(|u| fix_update(u, &rules));
     let total: u32 = newly_valid_updates.map(|u| middle_element(&u)).sum();
-    i32::try_from(total).unwrap()
+    i64::try_from(total).unwrap()
 }
 
 #[cfg(test)]

@@ -4,9 +4,9 @@ use std::vec::Vec;
 
 use crate::common::parsing::{parse_as_ii, read_all_records};
 
-fn sorted_error_sum(records: Vec<(i32, i32)>) -> i32 {
+fn sorted_error_sum(records: Vec<(i64, i64)>) -> i64 {
     let mut result = 0;
-    let (mut left, mut right): (Vec<i32>, Vec<i32>) = records.iter().cloned().unzip();
+    let (mut left, mut right): (Vec<i64>, Vec<i64>) = records.iter().cloned().unzip();
     left.sort();
     right.sort();
     for (x, y) in zip(left, right) {
@@ -15,13 +15,13 @@ fn sorted_error_sum(records: Vec<(i32, i32)>) -> i32 {
     result
 }
 
-fn similarity_score(records: Vec<(i32, i32)>) -> i32 {
-    let mut result: i32 = 0;
-    let (left, right): (Vec<i32>, Vec<i32>) = records.iter().cloned().unzip();
-    let keys: HashSet<i32> =
+fn similarity_score(records: Vec<(i64, i64)>) -> i64 {
+    let mut result: i64 = 0;
+    let (left, right): (Vec<i64>, Vec<i64>) = records.iter().cloned().unzip();
+    let keys: HashSet<i64> =
         &HashSet::from_iter(left.iter().cloned()) | &HashSet::from_iter(left.iter().cloned());
-    let mut left_counts: HashMap<i32, i32> = HashMap::new();
-    let mut right_counts: HashMap<i32, i32> = HashMap::new();
+    let mut left_counts: HashMap<i64, i64> = HashMap::new();
+    let mut right_counts: HashMap<i64, i64> = HashMap::new();
     for l in left {
         left_counts.insert(l, left_counts.get(&l).unwrap_or(&0) + 1);
     }
@@ -29,19 +29,19 @@ fn similarity_score(records: Vec<(i32, i32)>) -> i32 {
         right_counts.insert(r, right_counts.get(&r).unwrap_or(&0) + 1);
     }
     for k in keys {
-        let score: i32 = k * left_counts.get(&k).unwrap_or(&0) * right_counts.get(&k).unwrap_or(&0);
+        let score: i64 = k * left_counts.get(&k).unwrap_or(&0) * right_counts.get(&k).unwrap_or(&0);
         result += score;
     }
     result
 }
 
-pub fn day1(source: Option<String>) -> i32 {
+pub fn day1(source: Option<String>) -> i64 {
     let records = read_all_records(source);
     let parsed = parse_as_ii(records);
     sorted_error_sum(parsed)
 }
 
-pub fn day1b(source: Option<String>) -> i32 {
+pub fn day1b(source: Option<String>) -> i64 {
     let records = read_all_records(source);
     let parsed = parse_as_ii(records);
     similarity_score(parsed)

@@ -35,7 +35,7 @@ fn all_search_lines(input: String) -> Vec<String> {
     result
 }
 
-fn count_word_in_lines(input: Vec<String>, target_word: &str) -> i32 {
+fn count_word_in_lines(input: Vec<String>, target_word: &str) -> i64 {
     let mut result = 0;
     let target_len = target_word.len();
     for line in input.iter() {
@@ -76,7 +76,7 @@ fn sliding_windows(input: Vec<String>, window_w: usize, window_h: usize) -> Vec<
 }
 
 #[allow(clippy::iter_nth_zero)] // for parallel-construction readability.
-fn count_x_mas_s(input: Vec<String>) -> i32 {
+fn count_x_mas_s(input: Vec<String>) -> i64 {
     let mut result = 0;
     for vignette in sliding_windows(input, 3, 3) {
         let x_readout: String = vec![
@@ -97,17 +97,17 @@ fn count_x_mas_s(input: Vec<String>) -> i32 {
     result
 }
 
-fn find_words(input: String) -> i32 {
+fn find_words(input: String) -> i64 {
     let search_lines = all_search_lines(input);
     count_word_in_lines(search_lines, "XMAS")
 }
 
-pub fn day4(source: Option<String>) -> i32 {
+pub fn day4(source: Option<String>) -> i64 {
     let lines = read_one_string(source);
     find_words(lines)
 }
 
-pub fn day4b(source: Option<String>) -> i32 {
+pub fn day4b(source: Option<String>) -> i64 {
     let lines = read_lines(source);
     count_x_mas_s(lines)
 }

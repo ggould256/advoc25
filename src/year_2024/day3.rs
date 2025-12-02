@@ -9,20 +9,20 @@ lazy_static! {
         Regex::new(r"(?:do\(\))|(?:don't\(\))|(?:mul\((\d{1,3}),(\d{1,3})\))").unwrap();
 }
 
-fn count_muls(lines: Vec<String>) -> i32 {
+fn count_muls(lines: Vec<String>) -> i64 {
     let mut result = 0;
     for line in lines {
         for capture in MUL_RE.captures_iter(line.as_str()) {
             let (full, [l, r]) = capture.extract();
             println!("Matched {}", full);
-            result += l.parse::<i32>().unwrap() * r.parse::<i32>().unwrap();
+            result += l.parse::<i64>().unwrap() * r.parse::<i64>().unwrap();
         }
     }
     result
 }
 
-fn count_enabled_muls(lines: Vec<String>) -> i32 {
-    let mut result = 0;
+fn count_enabled_muls(lines: Vec<String>) -> i64 {
+    let mut result: i64 = 0;
     let mut enabled = true;
     for line in lines {
         for capture in OP_RE.captures_iter(line.as_str()) {
@@ -35,7 +35,7 @@ fn count_enabled_muls(lines: Vec<String>) -> i32 {
                 let l = capture.get(1).unwrap().as_str();
                 let r = capture.get(2).unwrap().as_str();
                 if enabled {
-                    result += l.parse::<i32>().unwrap() * r.parse::<i32>().unwrap();
+                    result += l.parse::<i64>().unwrap() * r.parse::<i64>().unwrap();
                 }
             }
         }
@@ -43,12 +43,12 @@ fn count_enabled_muls(lines: Vec<String>) -> i32 {
     result
 }
 
-pub fn day3(source: Option<String>) -> i32 {
+pub fn day3(source: Option<String>) -> i64 {
     let lines = read_lines(source);
     count_muls(lines)
 }
 
-pub fn day3b(source: Option<String>) -> i32 {
+pub fn day3b(source: Option<String>) -> i64 {
     let lines = read_lines(source);
     count_enabled_muls(lines)
 }

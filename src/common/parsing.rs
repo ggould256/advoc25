@@ -76,27 +76,27 @@ where
     result
 }
 
-/// Parses a vector of string records into a vector of (i32, i32) tuples.
-pub fn parse_as_ii(input: Vec<Vec<String>>) -> Vec<(i32, i32)> {
-    let mut result: Vec<(i32, i32)> = Vec::<(i32, i32)>::new();
+/// Parses a vector of string records into a vector of (i64, i64) tuples.
+pub fn parse_as_ii(input: Vec<Vec<String>>) -> Vec<(i64, i64)> {
+    let mut result: Vec<(i64, i64)> = Vec::<(i64, i64)>::new();
     for input_record in input {
         assert!(input_record.len() == 2);
-        let record: (i32, i32) = (
-            input_record[0].parse::<i32>().unwrap(),
-            input_record[1].parse::<i32>().unwrap(),
+        let record: (i64, i64) = (
+            input_record[0].parse::<i64>().unwrap(),
+            input_record[1].parse::<i64>().unwrap(),
         );
         result.push(record);
     }
     result
 }
 
-/// Parses the output of `read_all_records` as i32 values.
-pub fn parse_as_i32s(input: Vec<Vec<String>>) -> Vec<Vec<i32>> {
-    let mut result: Vec<Vec<i32>> = Vec::new();
+/// Parses the output of `read_all_records` as i64 values.
+pub fn parse_as_i32s(input: Vec<Vec<String>>) -> Vec<Vec<i64>> {
+    let mut result: Vec<Vec<i64>> = Vec::new();
     for input_record in input {
-        let mut record: Vec<i32> = Vec::new();
+        let mut record: Vec<i64> = Vec::new();
         for e in input_record {
-            record.push(e.parse::<i32>().unwrap())
+            record.push(e.parse::<i64>().unwrap())
         }
         result.push(record);
     }

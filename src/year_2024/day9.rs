@@ -1,6 +1,6 @@
 use crate::parsing::read_lines;
 
-type Scalar = i32;
+type Scalar = i64;
 
 type Id = Scalar;
 type Length = Scalar;

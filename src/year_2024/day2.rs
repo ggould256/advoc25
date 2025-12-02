@@ -1,7 +1,7 @@
 use crate::common::parsing::{parse_as_i32s, read_all_records};
 
-fn record_is_safe(record: &[i32]) -> bool {
-    let differences: Vec<i32> = (0..record.len() - 1)
+fn record_is_safe(record: &[i64]) -> bool {
+    let differences: Vec<i64> = (0..record.len() - 1)
         .map(|i| record[i + 1] - record[i])
         .collect();
     // Ascending or descending.
@@ -14,8 +14,8 @@ fn record_is_safe(record: &[i32]) -> bool {
     false
 }
 
-fn record_is_kinda_safe(record: &[i32]) -> bool {
-    let mut possible_safe_sequences: Vec<Vec<i32>> = vec![record.to_owned()];
+fn record_is_kinda_safe(record: &[i64]) -> bool {
+    let mut possible_safe_sequences: Vec<Vec<i64>> = vec![record.to_owned()];
     for i in 0..record.len() {
         let mut short_record = Vec::new();
         short_record.extend(record[0..i].iter());
@@ -25,7 +25,7 @@ fn record_is_kinda_safe(record: &[i32]) -> bool {
     possible_safe_sequences.iter().any(|r| record_is_safe(r))
 }
 
-fn total_safe(records: Vec<Vec<i32>>) -> i32 {
+fn total_safe(records: Vec<Vec<i64>>) -> i64 {
     let mut result = 0;
     for record in records {
         if record_is_safe(&record) {
@@ -35,7 +35,7 @@ fn total_safe(records: Vec<Vec<i32>>) -> i32 {
     result
 }
 
-fn total_kinda_safe(records: Vec<Vec<i32>>) -> i32 {
+fn total_kinda_safe(records: Vec<Vec<i64>>) -> i64 {
     let mut result = 0;
     for record in records {
         if record_is_kinda_safe(&record) {
@@ -45,12 +45,12 @@ fn total_kinda_safe(records: Vec<Vec<i32>>) -> i32 {
     result
 }
 
-pub fn day2(source: Option<String>) -> i32 {
+pub fn day2(source: Option<String>) -> i64 {
     let records = parse_as_i32s(read_all_records(source));
     total_safe(records)
 }
 
-pub fn day2b(source: Option<String>) -> i32 {
+pub fn day2b(source: Option<String>) -> i64 {
     let records = parse_as_i32s(read_all_records(source));
     total_kinda_safe(records)
 }
