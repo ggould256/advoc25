@@ -2,7 +2,7 @@ use regex::Regex;
 
 use log::debug;
 
-use crate::parsing::read_regex_records;
+use crate::common::parsing::read_regex_records;
 
 #[derive(Debug)]
 enum Lr {
@@ -92,11 +92,11 @@ pub fn day1(source: Option<String>) -> (i32, i32) {
     (zero_visits, zero_passes)
 }
 
-pub fn day1a(source: Option<String>) -> i64 {
+pub fn solution_a(source: Option<String>) -> i64 {
     day1(source).0 as i64
 }
 
-pub fn day1b(source: Option<String>) -> i64 {
+pub fn solution_b(source: Option<String>) -> i64 {
     day1(source).1 as i64
 }
 
@@ -116,7 +116,7 @@ mod tests {
 
     #[test]
     fn test_example_1() {
-        assert_eq!(day1a(Some(EXAMPLE_A_DATA.to_string())), 3);
+        assert_eq!(solution_a(Some(EXAMPLE_A_DATA.to_string())), 3);
     }
 
     #[test]
@@ -125,12 +125,12 @@ mod tests {
             info!("Skipping test that requires input not in repository");
             return;
         }
-        assert_eq!(day1a(Some(INPUT_A_DATA.to_string())), 1040);
+        assert_eq!(solution_a(Some(INPUT_A_DATA.to_string())), 1040);
     }
 
     #[test]
     fn test_example_1b() {
-        assert_eq!(day1b(Some(EXAMPLE_B_DATA.to_string())), 6);
+        assert_eq!(solution_b(Some(EXAMPLE_B_DATA.to_string())), 6);
     }
 
     #[test]
@@ -139,6 +139,6 @@ mod tests {
             info!("Skipping test that requires input not in repository");
             return;
         }
-        assert_eq!(day1b(Some(INPUT_B_DATA.to_string())), 6027);
+        assert_eq!(solution_b(Some(INPUT_B_DATA.to_string())), 6027);
     }
 }

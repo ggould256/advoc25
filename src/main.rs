@@ -1,40 +1,30 @@
-use std::env;
+mod common;
+mod year_2025;
 
-use const_format::concatcp;
+use clap::Parser;
 
-mod parsing;
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(short, long, default_value="2025")]
+    year: usize,
 
-macro_rules! register_days {
-    ($($module:tt),*) => (
-        $(
-            mod $module;
-        )*
-        const NAME_TO_FN : &[(&str, fn(Option<String>) -> i64)] = &[
-            $(
-                (concatcp!(stringify!($module), "a"), $module::day1a as fn(Option<String>) -> i64),
-                (concatcp!(stringify!($module), "b"), $module::day1b as fn(Option<String>) -> i64),
-            )*
-        ];
-    );
+    #[arg(short, long)]
+    day: String,
+
+    source: Option<String>,
 }
-register_days!(day1);
+
+
+const YEAR_TO_FN: &[(usize, for<'a> fn(&'a str, Option<std::string::String>) -> i64); 1] = &[
+    (2025, year_2025::run_test),
+];
+
 
 fn main() {
     env_logger::init();
-    let mut failed = false;
-    let solutions: std::collections::HashMap<_, _> = NAME_TO_FN.iter().cloned().collect();
-    for arg in env::args().skip(1) {
-        if solutions.contains_key(arg.as_str()) {
-            let func = solutions[&arg.as_str()];
-            let result = func(None);
-            println!("{} output: {}", arg, result)
-        } else {
-            println!("Skipping unknown test {}", arg);
-            failed = true;
-            continue;
-        };
-    }
-    if failed {
-        std::process::exit(1);
-    }
+    let args = Args::parse();
+    let solutions: std::collections::HashMap<_, _> = YEAR_TO_FN.iter().cloned().collect();
+    let result: i64 = solutions[&args.year](&args.day, args.source);
+    println!("{}", result)
 }
