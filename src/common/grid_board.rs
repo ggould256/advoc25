@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 
 use std::fmt::Debug;
+
 use nalgebra::Vector2;
 
 pub type Scalar = i64;
@@ -8,12 +9,19 @@ pub type Xy = Vector2<Scalar>;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Direction {
-    North, East, South, West
+    North,
+    East,
+    South,
+    West,
 }
 
 impl Direction {
-    pub const ALL: [Direction; 4] =
-        [Direction::North, Direction::East, Direction::South, Direction::West];
+    pub const ALL: [Direction; 4] = [
+        Direction::North,
+        Direction::East,
+        Direction::South,
+        Direction::West,
+    ];
 
     pub fn to_char(&self) -> char {
         match self {
@@ -40,7 +48,8 @@ impl Direction {
             'v' => Some(Direction::South),
             '<' => Some(Direction::West),
             _ => None,
-        }.unwrap()
+        }
+        .unwrap()
     }
 
     pub fn cw(&self) -> Direction {
@@ -49,7 +58,7 @@ impl Direction {
             Direction::East => Direction::South,
             Direction::South => Direction::West,
             Direction::West => Direction::North,
-        }        
+        }
     }
 
     pub fn ccw(&self) -> Direction {
@@ -58,7 +67,7 @@ impl Direction {
             Direction::East => Direction::North,
             Direction::South => Direction::East,
             Direction::West => Direction::South,
-        }        
+        }
     }
 }
 
@@ -68,13 +77,19 @@ pub struct Board<BoardContent> {
 }
 
 impl<BoardContent> Board<BoardContent>
-    where BoardContent: Copy + Debug + ToString,
-          BoardContent: TryFrom<char, Error:Debug>
+where
+    BoardContent: Copy + Debug + ToString,
+    BoardContent: TryFrom<char, Error: Debug>,
 {
-
-    pub fn height(&self) -> usize {self.board.len() }
-    pub fn width(&self) -> usize { self.board[0].len() }
-    pub fn dimensions(&self) -> Xy {Xy::new(self.width() as Scalar, self.height() as Scalar)}
+    pub fn height(&self) -> usize {
+        self.board.len()
+    }
+    pub fn width(&self) -> usize {
+        self.board[0].len()
+    }
+    pub fn dimensions(&self) -> Xy {
+        Xy::new(self.width() as Scalar, self.height() as Scalar)
+    }
 
     pub fn all_coords(&self) -> Vec<Xy> {
         let mut result = Vec::new();
@@ -87,11 +102,15 @@ impl<BoardContent> Board<BoardContent>
     }
 
     pub fn at(&self, xy: Xy) -> BoardContent {
-        self.board[xy[1] as usize][xy[0]as usize]
+        self.board[xy[1] as usize][xy[0] as usize]
     }
 
     pub fn maybe_at(&self, xy: Xy) -> Option<BoardContent> {
-        if xy[0] < 0 || xy[0] >= self.width() as Scalar || xy[1] < 0 || xy[1] >= self.height() as Scalar {
+        if xy[0] < 0
+            || xy[0] >= self.width() as Scalar
+            || xy[1] < 0
+            || xy[1] >= self.height() as Scalar
+        {
             None
         } else {
             Some(self.board[xy[1] as usize][xy[0] as usize])
@@ -99,7 +118,7 @@ impl<BoardContent> Board<BoardContent>
     }
 
     pub fn set_at(&mut self, xy: Xy, c: BoardContent) {
-        self.board[xy[1] as usize][xy[0]as usize] = c;
+        self.board[xy[1] as usize][xy[0] as usize] = c;
     }
 
     pub fn to_strings(&self) -> Vec<String> {
@@ -111,9 +130,14 @@ impl<BoardContent> Board<BoardContent>
     }
 
     pub fn from_strings(strings: &Vec<String>) -> Board<BoardContent> {
-        let mut result = Board{board:Vec::new()};
+        let mut result = Board { board: Vec::new() };
         for row_string in strings {
-            result.board.push(row_string.chars().map(|c| BoardContent::try_from(c).unwrap()).collect());
+            result.board.push(
+                row_string
+                    .chars()
+                    .map(|c| BoardContent::try_from(c).unwrap())
+                    .collect(),
+            );
         }
         result
     }
@@ -127,20 +151,27 @@ impl<BoardContent> Board<BoardContent>
                 None => {}
             }
         }
-        result        
+        result
     }
 
     pub fn neighbors8(&self, loc: Xy) -> Vec<BoardContent> {
         let mut result = Vec::new();
         let dirs8: Vec<Xy> = vec![
-            Xy::new(1, 0), Xy::new(1, 1), Xy::new(0, 1), Xy::new(-1, 1),
-            Xy::new(-1, 0), Xy::new(-1, -1), Xy::new(0, -1), Xy::new(1, -1)];
+            Xy::new(1, 0),
+            Xy::new(1, 1),
+            Xy::new(0, 1),
+            Xy::new(-1, 1),
+            Xy::new(-1, 0),
+            Xy::new(-1, -1),
+            Xy::new(0, -1),
+            Xy::new(1, -1),
+        ];
         for &offset in dirs8.iter() {
             match self.maybe_at(loc + offset) {
                 Some(c) => result.push(c),
                 None => {}
             }
         }
-        result        
+        result
     }
 }
