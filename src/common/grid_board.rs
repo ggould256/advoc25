@@ -23,7 +23,7 @@ impl Direction {
         Direction::West,
     ];
 
-    pub fn to_char(&self) -> char {
+    pub fn to_char(self) -> char {
         match self {
             Direction::North => '^',
             Direction::East => '>',
@@ -32,7 +32,7 @@ impl Direction {
         }
     }
 
-    pub fn to_offset(&self) -> Xy {
+    pub fn to_offset(self) -> Xy {
         match self {
             Direction::North => Xy::new(0, -1),
             Direction::East => Xy::new(1, 0),

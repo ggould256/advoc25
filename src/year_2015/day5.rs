@@ -41,9 +41,9 @@ mod tests {
     use log::info;
     use std::fs::File;
 
-    const DAY: &str = "4";
-    const EXAMPLE_A_DATA: &str = concatcp!("data/2015/day", DAY, "_example.txt");
-    const EXAMPLE_B_DATA: &str = concatcp!("data/2015/day", DAY, "_example.txt");
+    const DAY: &str = "5";
+    const EXAMPLE_A_DATA: &str = concatcp!("data/2015/day", DAY, "a_example.txt");
+    const EXAMPLE_B_DATA: &str = concatcp!("data/2015/day", DAY, "b_example.txt");
     const INPUT_A_DATA: &str = concatcp!("inputs/2015/day", DAY, "_test.txt");
     const INPUT_B_DATA: &str = concatcp!("inputs/2015/day", DAY, "_test.txt");
 

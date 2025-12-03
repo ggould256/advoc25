@@ -25,11 +25,11 @@ pub fn multi_day3(source: Option<String>, n: usize) -> i64 {
 }
 
 pub fn solution_a(source: Option<String>) -> i64 {
-    multi_day3(source, 1) as i64
+    multi_day3(source, 1)
 }
 
 pub fn solution_b(source: Option<String>) -> i64 {
-    multi_day3(source, 2) as i64
+    multi_day3(source, 2)
 }
 
 #[cfg(test)]

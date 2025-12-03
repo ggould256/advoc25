@@ -1,8 +1,8 @@
 use crate::common::parsing::read_one_string;
 
 fn read_input(source: Option<String>) -> String {
-    let input = read_one_string(source);
-    input
+    
+    read_one_string(source)
 }
 
 pub fn solution(source: Option<String>, zeroes: usize) -> i64 {
