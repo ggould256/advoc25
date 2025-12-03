@@ -8,7 +8,8 @@ fn read_input(source: Option<String>) -> Vec<Battery> {
     let lines = read_lines(source);
     let mut batteries: Vec<Battery> = Vec::new();
     for line in lines {
-        let levels: Battery = line.chars()
+        let levels: Battery = line
+            .chars()
             .map(|c| c.to_string().parse::<i64>().unwrap().to_owned())
             .collect::<Vec<i64>>();
         batteries.push(levels);
@@ -24,15 +25,25 @@ fn compute_power(batteries: &Vec<Battery>, num_cells: usize) -> i64 {
         let mut cursor = 0;
         for cell in 0..num_cells {
             let cells_remaining = num_cells - cell;
-            debug!("battery has {} cells, {} cells remain to be chosen, cursor at {}", battery.len(), cells_remaining, cursor);
+            debug!(
+                "battery has {} cells, {} cells remain to be chosen, cursor at {}",
+                battery.len(),
+                cells_remaining,
+                cursor
+            );
             assert!(cursor + cells_remaining <= battery.len());
-            let digit = battery.iter()
+            let digit = battery
+                .iter()
                 .skip(cursor)
                 .take(battery.len() - cursor - cells_remaining + 1)
-                .max().unwrap();
-            let digit_pos = battery.iter()
+                .max()
+                .unwrap();
+            let digit_pos = battery
+                .iter()
                 .skip(cursor)
-                .position(|&x| x == *digit).unwrap() + cursor;
+                .position(|&x| x == *digit)
+                .unwrap()
+                + cursor;
             cursor = digit_pos + 1;
             debug!("Selected digit at pos {} with value {}", digit_pos, digit);
             battery_power = battery_power * 10 + digit;
@@ -85,7 +96,7 @@ mod tests {
 
     #[test]
     fn test_example_1b() {
-        assert_eq!(solution_b(Some(EXAMPLE_B_DATA.to_string())), 0);
+        assert_eq!(solution_b(Some(EXAMPLE_B_DATA.to_string())), 3121910778619);
     }
 
     #[test]
@@ -94,6 +105,6 @@ mod tests {
             info!("Skipping test that requires input not in repository");
             return;
         }
-        assert_eq!(solution_b(Some(INPUT_B_DATA.to_string())), 0);
+        assert_eq!(solution_b(Some(INPUT_B_DATA.to_string())), 170147128753455);
     }
 }
