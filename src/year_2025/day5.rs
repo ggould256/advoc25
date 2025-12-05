@@ -9,6 +9,13 @@ struct IdRange {
     end: Id,
 }
 
+enum EndpointKind { Start, End }
+
+struct RangePoint {
+    id: Id,
+    kind: EndpointKind,
+}
+
 fn read_input(source: Option<String>) -> (Vec<IdRange>, Vec<Id>) {
     let inventory_re = Regex::new(r"(\d+)(?:-(\d+))?").unwrap();
     let lines = read_regex_records(source, inventory_re);
@@ -35,13 +42,59 @@ fn solutions(source: Option<String>) -> (i64, i64) {
     for id in ids {
         for range in &ranges {
             if range.start <= id && id <= range.end {
-                debug!("Id {} is in range {}-{}", id, range.start, range.end);
                 in_ranges += 1;
                 break;
             }
         }
     }
-    (in_ranges, 0)
+
+    let mut range_points: Vec<RangePoint> = vec![];
+    for range in ranges {
+        range_points.push(RangePoint {
+            id: range.start,
+            kind: EndpointKind::Start,
+        });
+        range_points.push(RangePoint {
+            id: range.end,
+            kind: EndpointKind::End,
+        });
+    }
+    range_points.sort_by(|a, b| {
+        if a.id != b.id {
+            a.id.cmp(&b.id)
+        } else {
+            match (&a.kind, &b.kind) {
+                (EndpointKind::Start, EndpointKind::End) => std::cmp::Ordering::Less,
+                (EndpointKind::End, EndpointKind::Start) => std::cmp::Ordering::Greater,
+                _ => std::cmp::Ordering::Equal,
+            }
+        }
+    });
+    let mut num_ranges_open = 0;
+    let mut range_start: Option<Id> = None;
+    let mut total_covered = 0;
+    for RangePoint { id, kind } in range_points {
+        match kind {
+            EndpointKind::Start => {
+                num_ranges_open += 1;
+                debug!("At id {}: opened range, now {} open", id, num_ranges_open);
+            }
+            EndpointKind::End => { 
+                num_ranges_open -= 1;
+                debug!("At id {}: closed range, now {} open", id, num_ranges_open);
+            }
+        }
+        if num_ranges_open > 0 && range_start.is_none() {
+            range_start = Some(id);
+            debug!("At id {}: starting covered range", id);
+        } else if num_ranges_open == 0 && range_start.is_some() {
+            let covered = id - range_start.unwrap() + 1;  // Ranges are inclusive.
+            total_covered += covered;
+            range_start = None;
+            debug!("At id {}: ending covered range, covered {}", id, covered);
+        }
+    }
+    (in_ranges, total_covered as i64)
 }
 
 pub fn solution_a(source: Option<String>) -> i64 {
@@ -82,7 +135,7 @@ mod tests {
 
     #[test]
     fn test_example_b() {
-        assert_eq!(solution_b(Some(EXAMPLE_B_DATA.to_string())), 0);
+        assert_eq!(solution_b(Some(EXAMPLE_B_DATA.to_string())), 14);
     }
 
     #[test]
@@ -91,6 +144,6 @@ mod tests {
             info!("Skipping test that requires input not in repository");
             return;
         }
-        assert_eq!(solution_b(Some(INPUT_B_DATA.to_string())), 0);
+        assert_eq!(solution_b(Some(INPUT_B_DATA.to_string())), 345821388687084);
     }
 }
