@@ -1,9 +1,12 @@
+use std::fmt::Debug;
 use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
 use std::io::Read;
 
 use regex::Regex;
+
+use super::grid_board::Board;
 
 /// Reads lines from `source` and groups them into records using `record_regex`.
 /// As is conventional, the first capture group is the entire record, and subsequent
@@ -119,4 +122,13 @@ pub fn stride_text(input: &str, start: usize, stride: usize) -> String {
         }
     }
     line
+}
+
+pub fn read_grid_board<BoardContent>(
+    source: Option<String>,
+) -> Board<BoardContent> 
+where
+    BoardContent: Copy + TryFrom<char, Error: std::fmt::Debug> + Debug + PartialEq,
+{
+    Board::from_strings(&read_lines(source))
 }
